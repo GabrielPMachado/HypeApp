@@ -2,6 +2,12 @@
 
 O "Waze do rolê": mostra em tempo real o hype de cada bar da Cidade Baixa, com notas de 0 a 10 dadas por quem já está lá. App para iPhone.
 
+<p align="center">
+  <img src="docs/demo.gif" alt="Demonstração animada do projeto: mapa de calor e ranking dos bares mudando conforme chegam novas avaliações" width="640" />
+  <br />
+  <sub>Mapa de calor e ranking dos bares mudando conforme chegam novas avaliações. Demonstração ilustrativa, a mesma do <a href="https://portfolio-financy1.vercel.app">portfólio</a>.</sub>
+</p>
+
 > Descubra exatamente onde está o "Hype" da noite antes de sair de casa. Sem surpresas, sem filas inesperadas e com a música certa para a sua vibe.
 
 ![Badge Status](https://img.shields.io/badge/Status-Em_Desenvolvimento-yellow)
