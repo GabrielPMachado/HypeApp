@@ -19,45 +19,6 @@ import { venuesWithin } from "@/utils/geo";
 import { rankingScore, scoreToLevel } from "@/utils/hype";
 import { locationLabel } from "@/utils/location";
 
-// Estilo escuro do Google Maps, feito com os próprios tokens de cor do
-// app (ver src/theme/colors.ts) pra não destoar do resto da UI. Só tem
-// efeito no Android — o iOS usa Apple Maps por padrão (sem chave
-// nenhuma), que não aceita JSON de estilo customizado.
-const DARK_MAP_STYLE = [
-  { elementType: "geometry", stylers: [{ color: "#1c1c22" }] },
-  { elementType: "labels.text.stroke", stylers: [{ color: "#0a0a0d" }] },
-  { elementType: "labels.text.fill", stylers: [{ color: "#9497a0" }] },
-  { featureType: "administrative", elementType: "geometry", stylers: [{ color: "#3a3a42" }] },
-  // administrative.land_parcel (contorno de lotes/propriedades) só
-  // aparece em zoom bem alto (nível de rua/propriedade) — não precisamos
-  // disso nesse mapa, então desligamos.
-  { featureType: "administrative.land_parcel", stylers: [{ visibility: "off" }] },
-  // Prédios (landscape.man_made) marcados só pelo CONTORNO, com o
-  // preenchimento igual ao chão vazio — em zoom de rua/quarteirão isso
-  // desenha a silhueta de cada prédio; a diferença de tom só no fill
-  // (testada antes) piora em zoom bem alto, porque ali o Google
-  // classifica o chão visível inteiro como "man_made" (não só os
-  // prédios), e um fill mais claro pinta a tela toda em vez de só os
-  // quarteirões.
-  { featureType: "landscape.man_made", elementType: "geometry.fill", stylers: [{ color: "#1c1c22" }] },
-  { featureType: "landscape.man_made", elementType: "geometry.stroke", stylers: [{ color: "#3a3a46" }] },
-  { featureType: "poi", stylers: [{ visibility: "off" }] },
-  { featureType: "poi.park", elementType: "geometry", stylers: [{ color: "#1f2a20" }] },
-  { featureType: "road", elementType: "geometry", stylers: [{ color: "#232330" }] },
-  { featureType: "road", elementType: "geometry.stroke", stylers: [{ color: "#151519" }] },
-  { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#2b2b38" }] },
-  { featureType: "transit", stylers: [{ visibility: "off" }] },
-  { featureType: "water", elementType: "geometry", stylers: [{ color: "#0f1620" }] },
-  { featureType: "water", elementType: "labels.text.fill", stylers: [{ color: "#5c5f68" }] },
-];
-
-// Map ID de um estilo vetorial escuro (configurado no Google Cloud
-// Console > Map Management) — só com mapa vetorial os prédios aparecem
-// em 3D de verdade. Sem essa variável (ex: quem clonar o projeto sem
-// configurar o próprio Map ID), cai pro DARK_MAP_STYLE clássico acima
-// (2D, sem prédio 3D, mas ainda no tema escuro).
-const GOOGLE_MAPS_MAP_ID = process.env.EXPO_PUBLIC_GOOGLE_MAPS_MAP_ID;
-
 const LEVEL_COLORS: Record<HypeLevel, string> = {
   low: colors.hypeLow,
   medium: colors.hypeMedium,
@@ -152,7 +113,7 @@ function regionAround(location: CityLocation): Region {
 // codegen que só existe em React Native puro). Por isso o fallback pra
 // web mora num arquivo à parte (mapa.web.tsx) que nunca importa esse
 // pacote — o Metro escolhe automaticamente esse arquivo pra plataforma
-// web e ESTE aqui pra iOS/Android. Testado de verdade só dá pra fazer
+// web e ESTE aqui pro iPhone. Testado de verdade só dá pra fazer
 // no celular.
 export default function MapaScreen() {
   const { venues } = useVenues();
@@ -231,25 +192,13 @@ export default function MapaScreen() {
         <MapView
           key={location.id}
           style={StyleSheet.absoluteFill}
-          // camera (não region) porque region não tem "pitch" — sem
-          // inclinar a câmera, o Google Maps só mostra os prédios
-          // achatados (2D), mesmo com showsBuildings ligado. Só inclina
-          // de verdade quando o Map ID (mapa vetorial) está ativo — sem
-          // ele não existe prédio 3D pra revelar, e a inclinação só
-          // deixaria o mapa 2D comum mais difícil de ler.
+          // camera (não region) para controlar zoom e inclinação de uma vez.
           initialCamera={{
             center: { latitude: initialRegion.latitude, longitude: initialRegion.longitude },
             zoom: deltaToZoom(initialRegion.longitudeDelta),
-            pitch: GOOGLE_MAPS_MAP_ID ? 55 : 0,
+            pitch: 0,
             heading: 0,
           }}
-          // googleMapId (mapa vetorial, com prédios 3D de verdade) e
-          // customMapStyle (JSON clássico) são mutuamente exclusivos —
-          // com Map ID configurado, o estilo vem da nuvem; senão, cai
-          // pro JSON embutido.
-          {...(GOOGLE_MAPS_MAP_ID
-            ? { googleMapId: GOOGLE_MAPS_MAP_ID }
-            : { customMapStyle: DARK_MAP_STYLE })}
           showsBuildings
         >
           {/* Todos os bares, estejam onde estiverem — a região só decide
@@ -287,11 +236,10 @@ export default function MapaScreen() {
                   strokeWidth={isLeader ? 3 : 2}
                 />
                 {/* Sem title/description: isso ativaria o callout nativo do
-                    Google Maps, que rouba o toque antes do onPress abrir a
+                    mapa, que rouba o toque antes do onPress abrir a
                     nossa folha de detalhe (mais completa que o callout).
-                    tracksViewChanges precisa ficar true — com false o
-                    Android tira uma "foto" da view ANTES dela terminar de
-                    desenhar (fonte/iniciais), e o marcador fica em branco. */}
+                    tracksViewChanges fica true para o marcador redesenhar
+                    depois que a fonte e as iniciais carregam. */}
                 <Marker
                   coordinate={coordinate}
                   tracksViewChanges

@@ -4,7 +4,6 @@
   "version": "1.1.0",
   "scripts": {
     "start": "expo start",
-    "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest",
@@ -59,7 +58,6 @@
     "preset": "jest-expo",
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "/android/",
       "/ios/"
     ],
     "transformIgnorePatterns": [

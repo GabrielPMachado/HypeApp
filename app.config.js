@@ -1,7 +1,6 @@
-// Convertido de app.json pra app.config.js só por causa disto: a chave do
-// Google Maps (android.config.googleMaps.apiKey) precisa vir de uma
-// variável de ambiente, e JSON estático não lê process.env. O Expo CLI já
-// carrega o .env automaticamente antes de avaliar este arquivo.
+// Configuração do Expo em JS (em vez de app.json) para poder ler variáveis
+// de ambiente se precisar. O Expo CLI já carrega o .env automaticamente
+// antes de avaliar este arquivo. O app é só para iPhone (e web).
 module.exports = {
   expo: {
     name: "HypeApp",
@@ -14,30 +13,6 @@ module.exports = {
     ios: {
       supportsTablet: true,
       bundleIdentifier: "com.hypeapp.app",
-    },
-    android: {
-      package: "com.hypeapp.app",
-      // Identificador numérico da build — a Play Store exige que cresça a
-      // cada envio (mesmo pra a mesma "version" acima). Sobe manualmente
-      // aqui a cada build de release; o EAS Build também sabe fazer isso
-      // sozinho (ver eas.json → cli.appVersionSource / autoIncrement).
-      versionCode: 1,
-      adaptiveIcon: {
-        backgroundColor: "#0A0A0D",
-        foregroundImage: "./assets/images/android-icon-foreground.png",
-        backgroundImage: "./assets/images/android-icon-background.png",
-        monochromeImage: "./assets/images/android-icon-monochrome.png",
-      },
-      predictiveBackGestureEnabled: false,
-      // Sem isso o mapa (react-native-maps) aparece quase em branco no
-      // Android — só os pins/formas aparecem, sem o mapa-base do Google.
-      // O Expo Go lê essa chave em tempo real (não precisa de build
-      // nativo pra testar). No iOS não precisa de chave (usa Apple Maps).
-      config: {
-        googleMaps: {
-          apiKey: process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY,
-        },
-      },
     },
     web: {
       bundler: "metro",
