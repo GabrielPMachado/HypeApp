@@ -3,7 +3,7 @@
 O "Waze do rolê": mostra em tempo real o hype de cada bar da Cidade Baixa, com notas de 0 a 10 dadas por quem já está lá. App para iPhone.
 
 <p align="center">
-  <img src="docs/app.gif" alt="O HypeApp numa tela de iPhone: ranking dos bares da Cidade Baixa e troca de região." width="320" />
+  <img src="docs/app-v2.gif" alt="O HypeApp numa tela de iPhone: ranking dos bares da Cidade Baixa e troca de região." width="320" />
   <br />
   <sub>O HypeApp numa tela de iPhone: ranking dos bares da Cidade Baixa e troca de região. Gravado da versão web do app (Expo), com os dados de exemplo do projeto.</sub>
 </p>
