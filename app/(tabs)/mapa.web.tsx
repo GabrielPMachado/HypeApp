@@ -9,7 +9,7 @@ import { fontFamily } from "@/theme/typography";
 // o bundle web (ele chama uma função de codegen que só existe em React
 // Native puro). Por isso esse fallback mora num arquivo à parte que nunca
 // importa react-native-maps — o Metro escolhe este arquivo (".web.tsx")
-// pra plataforma web e mapa.tsx pra iOS/Android automaticamente.
+// pra plataforma web e mapa.tsx pro iPhone automaticamente.
 export default function MapaWebScreen() {
   return (
     <View style={styles.container}>

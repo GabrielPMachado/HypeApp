@@ -106,22 +106,6 @@ Draw-Glow $c.Graphics 512 512 470 95
 Draw-Bolt $c.Graphics 512 512 600 $boltTop $boltBottom
 Save-Canvas $c "icon.png"
 
-# --- icone adaptativo do Android: fundo, frente e monocromatico ---
-# A frente fica dentro da "zona segura" (circulo central de ~66%) pra nao ser cortada.
-$c = New-Canvas 1024
-$c.Graphics.Clear($background)
-Draw-Glow $c.Graphics 512 512 470 95
-Save-Canvas $c "android-icon-background.png"
-
-$c = New-Canvas 1024
-Draw-Bolt $c.Graphics 512 512 440 $boltTop $boltBottom
-Save-Canvas $c "android-icon-foreground.png"
-
-$white = [System.Drawing.Color]::FromArgb(255, 255, 255, 255)
-$c = New-Canvas 1024
-Draw-Bolt $c.Graphics 512 512 440 $white $white
-Save-Canvas $c "android-icon-monochrome.png"
-
 # --- splash.png: raio + wordmark, fundo transparente (a cor vem do app.config.js) ---
 $fonts = New-Object System.Drawing.Text.PrivateFontCollection
 $fonts.AddFontFile($fontFile)

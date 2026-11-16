@@ -1,5 +1,7 @@
 # 🍻 HypeApp - O "Waze" do Rolê
 
+O "Waze do rolê": mostra em tempo real o hype de cada bar da Cidade Baixa, com notas de 0 a 10 dadas por quem já está lá. App para iPhone.
+
 > Descubra exatamente onde está o "Hype" da noite antes de sair de casa. Sem surpresas, sem filas inesperadas e com a música certa para a sua vibe.
 
 ![Badge Status](https://img.shields.io/badge/Status-Em_Desenvolvimento-yellow)
@@ -45,21 +47,21 @@ Após a validação na Cidade Baixa, o HypeApp monetizará através de frentes v
 
 ## 🛠️ Stack Tecnológica (MVP)
 
-* **Frontend (Mobile):** React Native com [Expo](https://expo.dev/) (Expo Router para navegação)
+* **Frontend (iPhone):** React Native com [Expo](https://expo.dev/) (Expo Router para navegação)
 * **Backend & Banco de Dados:** Firebase (Firestore/Realtime Database para status ao vivo)
-* **Geolocalização:** Google Maps API
+* **Mapa e localização:** Apple Maps (react-native-maps), expo-location e [Geoapify](https://www.geoapify.com/) para o mapa estático e a busca de região
 
 ---
 
 ## 🚀 Como Rodar o Projeto
 
-Pré-requisitos: [Node.js](https://nodejs.org/) e o Android SDK instalado (Android Studio resolve).
+Pré-requisitos: [Node.js](https://nodejs.org/), um Mac com Xcode e um iPhone (ou o simulador).
 
 > ⚠️ O app **não roda no Expo Go**: `react-native-maps` precisa de código nativo que o Expo Go não consegue linkar dinamicamente. É preciso um **development build** próprio (uma vez só, ou sempre que uma dependência nativa mudar):
 >
 > ```bash
-> npx expo prebuild --platform android
-> npx expo run:android
+> npx expo prebuild --platform ios
+> npx expo run:ios
 > ```
 
 Depois do development build instalado no celular/emulador, o dia a dia é só:

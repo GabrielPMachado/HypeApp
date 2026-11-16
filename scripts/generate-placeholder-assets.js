@@ -80,9 +80,6 @@ const ACCENT = [232, 178, 77, 255]; // #E8B24D
 const targets = [
   { file: "icon.png", size: 1024, color: ACCENT },
   { file: "splash.png", size: 1024, color: BG },
-  { file: "android-icon-foreground.png", size: 1024, color: ACCENT },
-  { file: "android-icon-background.png", size: 1024, color: BG },
-  { file: "android-icon-monochrome.png", size: 1024, color: [255, 255, 255, 255] },
   { file: "favicon.png", size: 48, color: ACCENT },
 ];
 
