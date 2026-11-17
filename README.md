@@ -5,6 +5,7 @@
 **O "Waze do rolê": o hype de cada bar da Cidade Baixa em tempo real, com notas de 0 a 10 dadas por quem já está lá.**
 
 [![CI](https://github.com/GabrielPMachado/HypeApp/actions/workflows/ci.yml/badge.svg)](https://github.com/GabrielPMachado/HypeApp/actions/workflows/ci.yml)
+[![Licença MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-green?style=flat-square)](LICENSE)
 ![Status](https://img.shields.io/badge/status-em_desenvolvimento-yellow?style=flat-square)
 ![Versão](https://img.shields.io/badge/vers%C3%A3o-1.1.0-blue?style=flat-square)
 [![Conventional Commits](https://img.shields.io/badge/Conventional_Commits-1.0.0-FE5196?style=flat-square&logo=conventionalcommits&logoColor=white)](https://www.conventionalcommits.org/pt-br/v1.0.0/)
@@ -247,7 +248,7 @@ Mudanças que quebram compatibilidade usam `!` após o tipo/escopo (ex.: `feat!:
 
 ## Licença
 
-Projeto de [Gabriel Pinto Machado](https://github.com/GabrielPMachado). Todos os direitos reservados.
+Projeto de [Gabriel Pinto Machado](https://github.com/GabrielPMachado). Distribuído sob a licença MIT: pode usar, copiar e modificar o código, desde que mantenha o aviso de copyright. Veja o arquivo [LICENSE](LICENSE).
 
 ---
 
@@ -305,6 +306,6 @@ The app does not run in Expo Go (it needs native maps code). `npm run web` runs 
 
 ### License
 
-By [Gabriel Pinto Machado](https://github.com/GabrielPMachado). All rights reserved.
+By [Gabriel Pinto Machado](https://github.com/GabrielPMachado). Released under the [MIT License](LICENSE).
 
 </details>
