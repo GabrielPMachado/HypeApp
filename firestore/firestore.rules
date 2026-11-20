@@ -1,14 +1,18 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // O limite vale de verdade só se a marca for gravada no MESMO lote do hype:
+    // sem o getAfter, bastava não gravar a marca para hypar (e ganhar moedas) sem parar.
     function canSubmitHype(venueId) {
       let rl = /databases/$(database)/documents/venues/$(venueId)/rateLimits/$(request.auth.uid);
-      return !exists(rl) || request.time > get(rl).data.lastReportAt + duration.value(30, 'm');
+      return (!exists(rl) || request.time > get(rl).data.lastReportAt + duration.value(30, 'm'))
+        && existsAfter(rl) && getAfter(rl).data.lastReportAt == request.time;
     }
 
     function canSubmitReview(venueId) {
       let rl = /databases/$(database)/documents/venues/$(venueId)/reviewLimits/$(request.auth.uid);
-      return !exists(rl) || request.time > get(rl).data.lastReviewAt + duration.value(24, 'h');
+      return (!exists(rl) || request.time > get(rl).data.lastReviewAt + duration.value(24, 'h'))
+        && existsAfter(rl) && getAfter(rl).data.lastReviewAt == request.time;
     }
 
     function venueGained(venueId, field) {
@@ -16,9 +20,11 @@ service cloud.firestore {
       return getAfter(path).data[field].size() == get(path).data[field].size() + 1;
     }
 
+    // list[0:0] dá erro nas regras: sem o caso da lista vazia, o primeiro hype
+    // (ou a primeira avaliação) de um bar sem nenhum era sempre negado.
     function appendedOne(oldList, newList) {
       return newList.size() == oldList.size() + 1
-        && newList[0:oldList.size()] == oldList;
+        && (oldList.size() == 0 || newList[0:oldList.size()] == oldList);
     }
 
     function validRating(v) {

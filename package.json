@@ -7,6 +7,7 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest",
+    "test:rules": "npx -y firebase-tools@15 emulators:exec --only firestore --project demo-hype \"node firestore/rules.test.mjs\"",
     "release": "commit-and-tag-version",
     "prepare": "husky"
   },
@@ -69,6 +70,7 @@
   "devDependencies": {
     "@commitlint/cli": "^21.2.2",
     "@commitlint/config-conventional": "^21.2.2",
+    "@firebase/rules-unit-testing": "^5.0.2",
     "@types/jest": "^30.0.0",
     "@types/react": "~19.2.2",
     "@types/three": "^0.170.0",
