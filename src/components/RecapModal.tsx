@@ -9,7 +9,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useVenues } from "@/context/VenuesContext";
 import { colors } from "@/theme/colors";
 import { fontFamily } from "@/theme/typography";
-import { calcPoints, getUserActivity, HYPE_REPORT_POINTS, REVIEW_POINTS } from "@/utils/gamification";
+import { calcPoints, getUserActivity } from "@/utils/gamification";
 
 type Period = "week" | "month";
 
